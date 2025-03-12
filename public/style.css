@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}
+
+h1 {
+    color: white;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}
+
+h2 {
+    color: black;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}
+
+.template {
+    display: grid;
+    grid-template-areas:
+        'cabecalho'
+        'corpo';
+    grid-template-rows: 15vh;
+}
+
+.corpo {
+    grid-area: corpo;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    width: 100%;
+    height: 500px;
+    text-align: center;
+    padding: 20px;
+}
+
+.cabecalho {
+    grid-area: cabecalho;
+    background-color: black;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 17vh;
+}
+.conteudo {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+}
