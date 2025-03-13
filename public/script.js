@@ -8,8 +8,10 @@ document.getElementById("form").addEventListener("submit", function(event) {
   const sintomas = sintomasInput.value;
 
   const formData = new FormData();
-  formData.append("pdf", pdf);
+  //formData.append("pdf", pdf);
   formData.append("sintomas", sintomas);
+
+  
 
   fetch("http://localhost:5500/api/upload", {
     method: "POST",
