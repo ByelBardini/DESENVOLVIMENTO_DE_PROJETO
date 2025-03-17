@@ -1,5 +1,3 @@
-import { response } from "express";
-
 document.getElementById("form").addEventListener("submit", function(event) {
   event.preventDefault();
 
@@ -14,8 +12,12 @@ document.getElementById("form").addEventListener("submit", function(event) {
     body: formData
   }
 
-  fetch("localhost:5500/sintomas", options)
-    .then(console.log(response))
-  }
-
-);
+  fetch("http://localhost:5500/sintomas", options)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+});
