@@ -1,27 +1,21 @@
+import { response } from "express";
+
 document.getElementById("form").addEventListener("submit", function(event) {
   event.preventDefault();
 
-  const pdfInput = document.getElementById("inputPdf");
-  const sintomasInput = document.getElementById("inputSintomas");
+  const formData = new FormData(form);
 
-  const pdf = pdfInput.files[0];
-  const sintomas = sintomasInput.value;
+  for(item of formData){
+    console.log(item[0], item[1])
+  }
 
-  const formData = new FormData();
-  //formData.append("pdf", pdf);
-  formData.append("sintomas", sintomas);
+  const options ={
+    method: 'POST',
+    body: formData
+  }
 
-  
+  fetch("localhost:5500/sintomas", options)
+    .then(console.log(response))
+  }
 
-  fetch("http://localhost:5500/api/upload", {
-    method: "POST",
-    body: formData,
-  })
-  .then(response => response.json()) // Converter a resposta para JSON
-  .then(data => {
-    console.log("Dados enviados com sucesso: ", data);
-  })
-  .catch(error => {
-    console.error("Erro ao enviar os dados: ", error);
-  });
-});
+);

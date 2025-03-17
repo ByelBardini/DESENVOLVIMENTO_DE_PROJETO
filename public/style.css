@@ -1,15 +1,19 @@
 body {
     margin: 0;
     padding: 0;
-    color: white;
+    color: gray;
     font-family: Arial, sans-serif;
     font-weight: bold;
 }
 
 h1 {
-    color: white;
+    color: black;
     font-family: Arial, sans-serif;
     font-weight: bold;
+}
+
+text{
+    color: black;
 }
 
 h2 {
