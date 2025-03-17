@@ -1,53 +1,10 @@
-const express = require('express');
-const multer = require('../node_modules/multer/index.js');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const path = require('path');
+import express from 'express'
 
-const app = express();
-const port = 5500;
+const app = express()
 
-// Usando CORS para permitir requisições do frontend
-app.use(cors());
-app.use(bodyParser.urlencoded({extended : true}))
+app.post('/sintomas', (req, res) =>{
+  res.send('Ok, deu bom')
+})
 
-// Configuração do Multer (middleware para lidar com upload de arquivos)
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // Pasta onde os arquivos serão armazenados
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // Nome do arquivo com timestamp
-  }
-});
+app.listen(5500)
 
-const upload = multer({ storage: storage });
-
-// Rota POST para lidar com o upload
-app.post('/api/upload', (req, res) => {
-
-  console.log(req.body)
-  
-  const { sintomas } = req.body;  // Sintomas enviado como texto
-  const file = req.file;           // Arquivo PDF enviado
-
-  // Exibir no console ou processar os dados
-  console.log('Sintomas:', sintomas);
-  console.log('Arquivo recebido:', file);
-
-  // Enviar a resposta para o frontend
-  res.json({ message: 'Upload realizado com sucesso', file, sintomas });
-});
-
-// Configuração para aceitar a requisição OPTIONS (necessária para CORS)
-app.post('/api/upload', (req, res) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  res.sendStatus(200);
-});
-
-// Iniciando o servidor
-app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`);
-});
