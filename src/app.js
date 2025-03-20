@@ -17,7 +17,7 @@ const pdf = []
 const medicacao = []
 
 //Parte para retornar os diagnosticos
-app.post('/diagnostico', upload.single('documento'), (req, res) =>{
+app.post('/sintomas', upload.single('documento'), (req, res) =>{
   //Inserção dos dados em variáveis
   sintomas.push(req.body.sintomas)
 
@@ -41,7 +41,7 @@ app.post('/diagnostico', upload.single('documento'), (req, res) =>{
   });
 
 //Parte para retornar os medicamentos
-app.post('/medicacao', (req, res) =>{
+app.post('/diagnostico', (req, res) =>{
   //Inserção dos dados em variáveis
   medicacao.push(req.body.diagnostico)
 
