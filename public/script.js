@@ -1,8 +1,8 @@
-document.getElementById("form").addEventListener("submit", function(event) {
+document.getElementById("formSintomas").addEventListener("submit", function(event) {
   event.preventDefault();
 
   //Adiciona dados no FormData e manda no console(por enquanto para testes)
-  const formData = new FormData(form);
+  const formData = new FormData(formSintomas);
 
   for(item of formData){
     console.log(item[0], item[1])
