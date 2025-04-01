@@ -8,6 +8,7 @@ function gerarPDF() {
         })
         .then(blob => {
             const url = window.URL.createObjectURL(blob);
+            document.getElementById('pdfViewer').src = url
             const a = document.createElement('a');
             a.href = url;
             a.download = 'RECEITUARIO_PREENCHIDO.pdf';

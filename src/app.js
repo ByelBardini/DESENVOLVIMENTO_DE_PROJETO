@@ -7,6 +7,7 @@ import { PDFDocument } from 'pdf-lib'
 
 const upload = multer({ dest: 'uploads/' })
 
+const date = new Date()
 const app = express()
 
 app.use(cors())
@@ -28,6 +29,7 @@ const generatePDF = async (res) => {
     // Preencher os campos do formulário
     const nomeField = form.getTextField('nome')
     const receitaField = form.getTextField('receita')
+    receitaField.enableMultiline()
     const diaField = form.getTextField('dia')
     const mesField = form.getTextField('mes')
     const anoField = form.getTextField('ano')
@@ -35,10 +37,10 @@ const generatePDF = async (res) => {
     const nomePaciente = 'Jorge'
 
     nomeField.setText(nomePaciente)
-    receitaField.setText('Tomar 2 comprimidos ao dia')
-    diaField.setText('25')
-    mesField.setText('03')
-    anoField.setText('2025')
+    receitaField.setText('Duas aspirinhas')
+    diaField.setText(String(date.getDate()).padStart(2, '0'))
+    mesField.setText(String(date.getMonth() + 1).padStart(2, '0'))
+    anoField.setText(String(date.getFullYear()))
 
     form.flatten();
     const pdfBytesFilled = await pdfDoc.save()
