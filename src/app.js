@@ -4,6 +4,11 @@ import multer from 'multer'
 import fs from 'fs'
 import pdfParse from 'pdf-parse'
 import { PDFDocument } from 'pdf-lib'
+import OpenAI from "openai";
+
+const openai = new OpenAI({
+  apiKey: "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",
+})
 
 const upload = multer({ dest: 'uploads/' })
 
@@ -65,18 +70,23 @@ app.post('/sintomas', upload.single('documento'), (req, res) =>{
   //Extração de texto do PDF
   let dataBuffer = fs.readFileSync(req.file.path);
   
-  pdfParse(dataBuffer).then(function(data) {
-    console.log(data.text);
+  pdfParse(dataBuffer).then(async function(data) {
+    console.log(data.text)
     pdf.push(data.text)
 
-    const resposta = {
-      sintomas: sintomas,
-      pdf: pdf
-    };
     //Fazer a pesquisa pro GPT aqui
+    const completion = openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      store: true,
+      messages: [
+        {"role": "user", "content": `Suponha que você é um médico, e você recebe os seguintes dados de um paciente: "${pdf}", e além disso, em uma consulta com o mesmo, ele deu o seguinte relato: "${sintomas}", baseado nessas informações, me retorne alguns possíveis diagnósticos em formato JSON, mas apenas o texto, nem colocá-lo no fomato JSON, esse diagnóstico deve conter o nome, e uma descrição breve do mesmo, com os campos "diagnostico" e "descrição", retorne SOMENTE O TEXTO EM JSON, NADA ALÉM`},
+      ],
+    })
+    const resposta = await completion;
+    console.log(resposta.choices[0].message.content)
   
     //Resposta pro Front
-    res.status(201).json({ message: 'Dados recebidos com sucesso!', resposta })
+    res.status(201).json(resposta.choices[0].message.content)
   })
 
   });
@@ -102,6 +112,6 @@ app.get('/gerarpdf', (req, res) => {
   generatePDF(res);
 });
 
-app.listen(5500, () => {
-  console.log('app.js iniciado na porta 5500');
+app.listen(3030, () => {
+  console.log('app.js iniciado na porta 3030');
 });
