@@ -9,6 +9,12 @@
     <body class="template">
         <div class="corpo">
             <h1>Gerar PDF</h1>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome"><br><br>
+            
+            <label for="medicacao">Medicação:</label>
+            <input type="text" id="medicacao" name="medicacao"><br><br>
+
             <button onclick="gerarPDF()">Gerar PDF</button>
             <iframe id="pdfViewer" style="width: 100%; height: 500px; border: none;"></iframe>
         </div>

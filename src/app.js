@@ -19,12 +19,14 @@ app.use(cors())
 
 app.use(express.json())
 
-const sintomas = []
-const pdf = []
-const medicacao = []
+let sintomas = null
+let pdf = null
+let diagnostico = null
+let medicacao = null
+let nome = null
 
 //Função para gerar o PDF
-const generatePDF = async (res) => {
+const gerarPDF = async (nome, medicacao, res) => {
   try {
     const pdfPath = 'RECEITUARIO.pdf'
     const pdfBytes = fs.readFileSync(pdfPath)
@@ -39,10 +41,8 @@ const generatePDF = async (res) => {
     const mesField = form.getTextField('mes')
     const anoField = form.getTextField('ano')
 
-    const nomePaciente = 'Jorge'
-
-    nomeField.setText(nomePaciente)
-    receitaField.setText('Duas aspirinhas')
+    nomeField.setText(nome)
+    receitaField.setText(medicacao)
     diaField.setText(String(date.getDate()).padStart(2, '0'))
     mesField.setText(String(date.getMonth() + 1).padStart(2, '0'))
     anoField.setText(String(date.getFullYear()))
@@ -52,7 +52,7 @@ const generatePDF = async (res) => {
     const outputDir = 'generated_files'
     if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir)
 
-    const outputPath = `${outputDir}/RECEITA_${nomePaciente.replace(/\s+/g, '_').toUpperCase()}.pdf`
+    const outputPath = `${outputDir}/RECEITA_${nome.toUpperCase()}.pdf`
     fs.writeFileSync(outputPath, pdfBytesFilled)
 
     await res.download(outputPath)
@@ -65,14 +65,15 @@ const generatePDF = async (res) => {
 //Parte para retornar os diagnosticos
 app.post('/sintomas', upload.single('documento'), (req, res) =>{
   //Inserção dos dados em variáveis
-  sintomas.push(req.body.sintomas)
+  sintomas = req.body.sintomas
+  console.log(sintomas)
 
   //Extração de texto do PDF
   let dataBuffer = fs.readFileSync(req.file.path);
   
   pdfParse(dataBuffer).then(async function(data) {
-    console.log(data.text)
-    pdf.push(data.text)
+    pdf = data.text
+    console.log(pdf)
 
     //Fazer a pesquisa pro GPT aqui
     const completion = openai.chat.completions.create({
@@ -86,32 +87,41 @@ app.post('/sintomas', upload.single('documento'), (req, res) =>{
     console.log(resposta.choices[0].message.content)
   
     //Resposta pro Front
-    res.status(201).json(resposta.choices[0].message.content)
+    res.status(201).json(JSON.parse(resposta.choices[0].message.content))
   })
-
-  });
-
-//Parte para retornar os medicamentos
-app.post('/diagnostico', (req, res) =>{
-  //Inserção dos dados em variáveis
-  medicacao.push(req.body.diagnostico)
-
-  //Fazer aqui a pesquisa a respeito da medicação
-  const resposta = {
-    medicacao: medicacao
-  };
-
-  //Resposta pro Front
-  res.status(201).json({ message: 'Dados recebidos com sucesso!', resposta })
 })
 
+//Parte para retornar os medicamentos
+app.post('/diagnostico', async (req, res) =>{
+  //Inserção dos dados em variáveis
+  diagnostico = req.body.diagnostico
+  console.log(diagnostico)
 
+  //Pesquisa da medicação aqui
+  const  completion = openai.chat.completions.create({
+    model: "gpt-4o-mini",
+    store: true,
+    messages: [
+      {"role": "user", "content": `Suponha que você é um médico, você recebe os seguintes dados de um paciente: "${pdf}", e você teve um adiagnóstico a respeito dessa pessoa, depois de analisar os sintomas, chegou à seguinte conclusão: "${diagnostico}", agora, você tem que medicar ela, me retorne possíveis alternativas de medicação em fomato JSON, seguindo o padrão: "medicacao: AQUI A MEDICAÇÃO INDICADA, prescricao: AQUI O QUANTO A PESSOA DEVE TOMAR, A PRESCRIÇÃO", quero que você me retorne somente o TEXTO EM FORMATO DE JSON, NADA ALÉM, não use a sua formatação de JSON, somente o texto`},
+    ],
+  })
+  const resposta = await completion;
+    console.log(resposta.choices[0].message.content)
+    
+    //Resposta pro Front
+    res.status(201).json(JSON.parse(resposta.choices[0].message.content))
+})
 
 // Rota para gerar o PDF
-app.get('/gerarpdf', (req, res) => {
-  generatePDF(res);
-});
+app.post('/gerarpdf', (req, res) => {
+  medicacao = req.body.medicacao
+  nome = req.body.nome
+  console.log(medicacao)
+  console.log(nome)
+
+  gerarPDF(nome, medicacao,res)
+})
 
 app.listen(3030, () => {
-  console.log('app.js iniciado na porta 3030');
-});
+  console.log('app.js iniciado na porta 3030')
+})

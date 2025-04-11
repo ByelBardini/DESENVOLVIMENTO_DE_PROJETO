@@ -1,8 +1,7 @@
 window.envia = (event) => {
-    console.log("teste")
   
-    //Adiciona dados num formFata e manda no console(por enquanto para testes)
-    const sintomas = document.getElementById('sintomas')
+    //Adiciona dados num formFata
+    const sintomas = document.getElementById('sintomas').value
     const input = document.getElementById('documento')
     const documento = input.files[0]
   
@@ -14,6 +13,7 @@ window.envia = (event) => {
       method: 'POST',
       body: formData
     }
+
     //Envia pro Back
     fetch("http://localhost:3030/sintomas", options)
       .then(response => response.json())
