@@ -1,12 +1,113 @@
-body {
+html, body {
+    height: 100vh;
     margin: 0;
     padding: 0;
-    color: gray;
     font-family: Arial, sans-serif;
-    font-weight: bold;
+    font-size: medium;
 }
 
-h1 {
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+.cabecalho{
+    background-color: #000000;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 50px;
+    height: 100px;
+    box-sizing: border-box;
+}
+
+.principal {
+    display: flex;
+    flex-grow: 1; /* faz ocupar o restante da tela */
+    background-color: #5a90c9;
+}
+
+.painel-lateral{
+    background-color: #0f2d49;
+    color: white;
+    width: 250px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.corpo{
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #5a90c9;
+    box-sizing: border-box;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+textarea{
+    width: 300px;           /* ocupa toda a largura do container */
+    height: 200px;         /* altura desejada */
+    resize: none;      /* permite redimensionar a altura */
+    padding: 10px;
+    font-size: medium;
+    box-sizing: border-box;
+    line-height: 1.5;
+    overflow-y: auto;      /* barra de rolagem vertical quando necessário */
+    white-space: pre-wrap; /* permite quebra de linha */
+    word-wrap: break-word; /* quebra palavras longas */
+    border-radius: 8px;
+    border: none;
+}
+
+button {
+    padding: 12px 30px;
+    font-size: 1.2em;
+    border-radius: 8px;
+    background-color: #0f2d49;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #1a3a5f;
+}
+
+
+
+/* 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+header {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    font-size: 100px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+label {
     color: black;
     font-family: Arial, sans-serif;
     font-weight: bold;
@@ -58,4 +159,4 @@ h2 {
     justify-content: center;
     gap: 10px;
     align-items: center;
-}
+} */

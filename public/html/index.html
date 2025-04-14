@@ -6,19 +6,57 @@
         <title>Teste</title>
         <link rel="stylesheet" href="./../css/style.css">
     </head>
-    <body class="template">
+    <body class="body">
+        <header class="cabecalho">
+            MED IA
+        </header>
+
+        <div class="principal">
+            <aside class="painel-lateral">
+                <p>Adicione os exames em PDF e descreva os sintomas e queixas do paciente</p>
+            </aside>
+
+
+            <main class="corpo">
+            <label style="margin-left: -225px;" for="sintomas">Sintomas:</label>
+            <textarea placeholder="Descreva os sintomas..." type="text" id="sintomas" name="sintomas"></textarea><br><br>
+
+            <label style="margin-left: -180px;" for="documento">Documentos:</label>
+            <input type="file" id="documento" name="documento" accept=".pdf"><br><br>
+
+            <button onclick="envia()">Enviar</button>
+            </main>
+
+        </div>
+        <script src="./../js/script.js"></script>
+    </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--     <body class="template">
+        <header>
+            MED IA
+        </header>
         <div class="corpo">
-            <h2>Teste</h2>
-
             <label for="sintomas">Sintomas:</label>
-            <input type="text" id="sintomas" name="sintomas"><br><br>
+            <input placeholder="Sintomas..." type="text" id="sintomas" name="sintomas"><br><br>
 
-            <label for="documento">Documento:</label>
+            <label for="documento">Documentos:</label>
             <input type="file" id="documento" name="documento" accept=".pdf"><br><br>
 
             <button onclick="envia()">Enviar</button>
         </div>
         <button onclick="window.location.href='index2.html'">Ir para Index2</button>
         <script src="./../js/script.js"></script>
-    </body>
+    </body>-->
 </html>
