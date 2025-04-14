@@ -7,13 +7,43 @@
         <link rel="stylesheet" href="./../css/style.css">
     </head>
     <body class="template">
-        <div class="corpo">
+        <header class="cabecalho">
+            MED IA
+        </header>
+
+        <div class="principal">
+            <aside class="painel-lateral">
+                <p>Adicione os exames em PDF e descreva os sintomas e queixas do paciente</p>
+            </aside>
+
+
+            <main class="corpo">
+                <label for="diagnostico">Diagnostico:</label>
+                <input type="text" id="diagnostico" name="diagnostico"><br><br>
+
+                <div id="sugestoes-diagnostico"></div>
+
+                <button onclick="envia()">Enviar</button>
+            </main>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <!-- <div class="corpo">
             <h2>Teste</h2>
                 <label for="diagnostico">Diagnostico:</label>
                 <input type="text" id="diagnostico" name="diagnostico"><br><br>
 
                 <button onclick="envia()">Enviar</button>
-        </div>
+        </div> -->
         <script src="./../js/script2.js"></script>
     </body>
 </html>

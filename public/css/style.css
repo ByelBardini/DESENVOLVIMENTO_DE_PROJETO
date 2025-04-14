@@ -47,16 +47,16 @@ body{
 }
 
 textarea{
-    width: 300px;           /* ocupa toda a largura do container */
-    height: 200px;         /* altura desejada */
-    resize: none;      /* permite redimensionar a altura */
+    width: 300px;
+    height: 200px;
+    resize: none;      
     padding: 10px;
     font-size: medium;
     box-sizing: border-box;
     line-height: 1.5;
-    overflow-y: auto;      /* barra de rolagem vertical quando necessário */
-    white-space: pre-wrap; /* permite quebra de linha */
-    word-wrap: break-word; /* quebra palavras longas */
+    overflow-y: auto;      
+    white-space: pre-wrap; 
+    word-wrap: break-word; 
     border-radius: 8px;
     border: none;
 }
@@ -76,9 +76,26 @@ button:hover {
     background-color: #1a3a5f;
 }
 
+#sugestoess-diagnostico{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sugestao{
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.sugestao:hover{
+    background-color: #d0d0d0;
+}  
 
 
-/* 
 
 
 
@@ -96,7 +113,23 @@ button:hover {
 
 
 
-header {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* header {
     background-color: black;
     color: white;
     padding: 10px;

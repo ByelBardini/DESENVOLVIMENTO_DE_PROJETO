@@ -1,5 +1,5 @@
 window.envia = (event) => {
-  
+ 
     //Adiciona dados num formFata
     const sintomas = document.getElementById('sintomas').value
     const input = document.getElementById('documento')
@@ -18,7 +18,10 @@ window.envia = (event) => {
     fetch("http://localhost:3030/sintomas", options)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        console.log(data)
+      })
+      .finally(() => {
+        window.location.href = "./../html/index2.html"
       })
       .catch(error => {
         console.error('Error:', error);
