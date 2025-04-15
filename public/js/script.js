@@ -18,10 +18,8 @@ window.envia = (event) => {
     fetch("http://localhost:3030/sintomas", options)
       .then(response => response.json())
       .then(data => {
-        console.log(data)
-      })
-      .finally(() => {
-        window.location.href = "./../html/index2.html"
+        localStorage.setItem('diagnostico', JSON.stringify(data))
+        window.location.href = 'C:/Users/Victor - TI/Documents/Victor/projetos-faculdade/DESELVOLVIMENTO_DE_PROJETO/public/html/index2.html'
       })
       .catch(error => {
         console.error('Error:', error);

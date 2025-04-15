@@ -76,24 +76,31 @@ button:hover {
     background-color: #1a3a5f;
 }
 
-#sugestoess-diagnostico{
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.sugestao{
-    padding: 10px;
+.sugestao {
     background-color: #f0f0f0;
-    border-radius: 6px;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 8px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.3s ease;
+}
+  
+.sugestao:hover {
+    background-color: #d0e0f0;
+} 
+
+.sugestao strong{
+    font-size: 1.1em;
+    color: #333;
 }
 
-.sugestao:hover{
-    background-color: #d0d0d0;
-}  
+.sugestao span{
+    display: block;
+    margin-top: 4px;
+    color: #555;
+}
+
+
 
 
 
