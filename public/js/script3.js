@@ -1,4 +1,5 @@
-let prescricaoselecionada = "";
+const medicamentosSelecionados = [];
+const prescricoesSelecionadas = [];
 
 window.addEventListener("DOMContentLoaded", () => {
     const data = JSON.parse(localStorage.getItem("medicacoes"));
@@ -16,27 +17,54 @@ window.addEventListener("DOMContentLoaded", () => {
         div.innerHTML = `<strong>${item.medicacao}</strong><br><small>${item.prescricao}</small>`;
 
         div.addEventListener("click", () => {
-            document.getElementById("medicacao").value = item.medicacao;
-            prescricaoselecionada = item.prescricao; // corrigido aqui
+            medicamentosSelecionados.push(item.medicacao);
+            prescricoesSelecionadas.push(item.prescricao);
+            atualizarLista();
         });
 
         container.appendChild(div);
     });
 
-    if (data.length > 0) {
-        document.getElementById("medicacao").value = data[0].medicacao;
-    }
 });
+
+function atualizarLista() {
+    const ul = document.getElementById("medicacoesSelecionadas");
+    ul.innerHTML = "";
+
+    medicamentosSelecionados.forEach((med, index) => {
+        const li = document.createElement("li");
+        li.textContent = `${med}`;
+
+        const btn = document.createElement("button");
+        btn.textContent = "Remover";
+        btn.style.marginLeft = "10px";
+        btn.onclick = () => {
+            medicamentosSelecionados.splice(index, 1);
+            prescricoesSelecionadas.splice(index, 1);
+            atualizarLista();
+        };
+
+        li.appendChild(btn);
+        ul.appendChild(li);
+    });
+}
 
 function gerarPDF() {
     const nome = document.getElementById('nome').value;
-    const medicacao = document.getElementById('medicacao').value;
-
-    if (!prescricaoselecionada) {
-        alert("Selecione uma prescrição antes de gerar o PDF.");
+    let medicacaoCompleta = medicamentosSelecionados.map((med, index) => {
+        const presc = prescricoesSelecionadas[index];
+        if (med && presc) {
+            return `${med}\n${presc}`;
+        } else {
+            return null;
+        }
+    }).filter(item => item !== null).join("\n\n");
+            
+    if (medicamentosSelecionados.length === 0 || prescricoesSelecionadas.length === 0) {
+        alert("Selecione ao menos uma medicação e prescrição antes de gerar o PDF.");
         return;
     }
-
+    
     const options = {
         method: 'POST',
         headers: {
@@ -44,15 +72,13 @@ function gerarPDF() {
         },
         body: JSON.stringify({
             nome: nome,
-            medicacao: medicacao,
-            prescricao: prescricaoselecionada
+            medicacao: medicacaoCompleta,
         })
     };
 
     console.log({
         nome: nome,
-        medicacao: medicacao,
-        prescricao: prescricaoselecionada
+        medicacao: medicacaoCompleta,
     });
 
     fetch('http://localhost:3030/gerarpdf', options)
@@ -72,3 +98,8 @@ function gerarPDF() {
         })
         .catch(error => console.error(error));
 }
+
+document.getElementById('voltarInicio').addEventListener('click', () => {
+    localStorage.clear();
+    window.location.href = './../html/index.html';
+})

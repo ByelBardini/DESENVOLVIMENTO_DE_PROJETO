@@ -129,3 +129,14 @@ button:hover {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+  #medicacoesSelecionadas {
+    margin-top: 10px;
+    padding-left: 20px;
+  }
+  
+  #medicacoesSelecionadas li {
+    margin-bottom: 5px;
+    list-style-type: disc;
+  }
+  
