@@ -32,6 +32,9 @@ window.envia = () => {
     body: JSON.stringify({ diagnostico }),
   };
 
+  document.getElementById('loading').style.display = 'flex'
+
+
   fetch("http://localhost:3030/diagnostico", options)
     .then((response) => response.json())
     .then((data) => {

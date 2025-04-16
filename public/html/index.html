@@ -18,13 +18,17 @@
 
 
             <main class="corpo">
-            <label style="margin-left: -225px;" for="sintomas">Sintomas:</label>
-            <textarea placeholder="Descreva os sintomas..." type="text" id="sintomas" name="sintomas"></textarea><br><br>
+                <div id="loading" style="display: none;">
+                    <div class="spinner"></div>
+                </div>
 
-            <label style="margin-left: -180px;" for="documento">Documentos:</label>
-            <input type="file" id="documento" name="documento" accept=".pdf"><br><br>
+                <label style="margin-left: -225px;" for="sintomas">Sintomas:</label>
+                <textarea placeholder="Descreva os sintomas..." type="text" id="sintomas" name="sintomas"></textarea><br><br>
 
-            <button onclick="envia()">Enviar</button>
+                <label style="margin-left: -180px;" for="documento">Documentos:</label>
+                <input type="file" id="documento" name="documento" accept=".pdf"><br><br>
+
+                <button onclick="envia()">Enviar</button>
             </main>
             <a href="./../html/index2.html"></a>
 

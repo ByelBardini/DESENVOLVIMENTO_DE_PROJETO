@@ -14,6 +14,8 @@ window.envia = (event) => {
       body: formData
     }
 
+    document.getElementById('loading').style.display = 'flex'
+
     //Envia pro Back
     fetch("http://localhost:3030/sintomas", options)
       .then(response => response.json())
@@ -23,5 +25,8 @@ window.envia = (event) => {
       })
       .catch(error => {
         console.error('Error:', error);
-      });
-  };
+      })
+      .finally(() => {
+        document.getElementById('loading').style.display = 'none'
+      })
+  }
