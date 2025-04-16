@@ -26,7 +26,7 @@ let medicacao = null
 let nome = null
 
 //Função para gerar o PDF
-const gerarPDF = async (nome, medicacao, res) => {
+const gerarPDF = async (nome, medicacao, prescricao, res) => {
   try {
     const pdfPath = 'RECEITUARIO.pdf'
     const pdfBytes = fs.readFileSync(pdfPath)
@@ -42,7 +42,7 @@ const gerarPDF = async (nome, medicacao, res) => {
     const anoField = form.getTextField('ano')
 
     nomeField.setText(nome)
-    receitaField.setText(medicacao)
+    receitaField.setText(`${medicacao}\n${prescricao}`)
     diaField.setText(String(date.getDate()).padStart(2, '0'))
     mesField.setText(String(date.getMonth() + 1).padStart(2, '0'))
     anoField.setText(String(date.getFullYear()))
@@ -114,13 +114,16 @@ app.post('/diagnostico', async (req, res) =>{
 
 // Rota para gerar o PDF
 app.post('/gerarpdf', (req, res) => {
-  medicacao = req.body.medicacao
-  nome = req.body.nome
-  console.log(medicacao)
-  console.log(nome)
+  const { nome, medicacao, prescricao } = req.body;
 
-  gerarPDF(nome, medicacao,res)
-})
+  console.log("Nome:", nome);
+  console.log("Medicamento:", medicacao);
+  console.log("Prescrição:", prescricao);
+
+  gerarPDF(nome, medicacao, prescricao, res);
+});
+
+
 
 app.listen(3030, () => {
   console.log('app.js iniciado na porta 3030')

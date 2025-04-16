@@ -10,7 +10,7 @@ window.addEventListener("DOMContentLoaded", () => {
     console.log("Diagnóstico: " + item);
     const div = document.createElement("div");
     div.classList.add("sugestao");
-    div.innerHTML = `<strong>${item.diagnostico}</strong><br><small>${item.descricao}</small>`;
+    div.innerHTML = `<strong>${item.diagnostico}</strong><br><small>${item.descricao || item["descrição"]}</small>`;
 
     div.addEventListener("click", () => {
       document.getElementById("diagnostico").value = item.diagnostico;
