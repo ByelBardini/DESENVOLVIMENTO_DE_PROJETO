@@ -21,7 +21,7 @@ window.envia = (event) => {
       .then(response => response.json())
       .then(data => {
         localStorage.setItem('diagnostico', JSON.stringify(data))
-        window.location.href = 'C:/Users/Victor - TI/Documents/Victor/projetos-faculdade/DESELVOLVIMENTO_DE_PROJETO/public/html/index2.html'
+        window.location.href = './../html/index2.html'
       })
       .catch(error => {
         console.error('Error:', error);

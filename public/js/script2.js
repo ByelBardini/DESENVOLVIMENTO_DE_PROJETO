@@ -41,7 +41,7 @@ window.envia = () => {
       // Armazena medicações recebidas
       localStorage.setItem("medicacoes", JSON.stringify(data));
       // Vai para index3
-      window.location.href = 'C:/Users/Victor - TI/Documents/Victor/projetos-faculdade/DESELVOLVIMENTO_DE_PROJETO/public/html/index3.html'
+      window.location.href = './../html/index3.html'
     })
     .catch((error) => {
       console.error("Erro ao enviar diagnóstico:", error);
